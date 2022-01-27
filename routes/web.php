@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('package_info/{id}','RateController@index');
+Route::get('room_info/{id}','RateController@index');

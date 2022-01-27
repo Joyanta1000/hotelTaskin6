@@ -22,7 +22,7 @@ class RateController extends Controller
             array_push($arr, $result[$i]->rate->rates);
         }
         $r = $result->where('rate.rates', min($arr))->first();
-        return $r;
+        return view('room_info', compact('r'));
     }
 
     /**
