@@ -9,34 +9,20 @@ use Illuminate\Support\Facades\DB;
 
 class RateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
-        // $j = Rate::where('package_id', '=', $id)
-        // ->orderBy('rates', 'asc')
-        // ->get();
-        // return $j->first();
-
         $result = Package::with(['rate', 'room'])
-            // ->select(DB::raw('(SELECT MIN(rates) FROM rates WHERE package_id = packages.id) as rates'), 'packages.package_name')
-            // ->whereHas('rate', function ($q) {
-            //      $q->where('rates', DB::raw('(SELECT min(rates) FROM rates WHERE package_id = packages.id ORDER BY rates ASC LIMIT 1)'));
-            // })
             ->when($id, function ($query, $id) {
                 return $query->where('room_id', $id);
             })
-
-            ->whereHas('rate', function ($q) {
-                 $q->where('rates', Rate::where('package_id', '=', 'packages.id')->min('rates'));
-            })
-            
             ->get();
-
-        return $result;
+        $arr = [];
+        for ($i = 0; $i < count($result); $i++) {
+            array_push($arr, $result[$i]->rate->rates);
+        }
+        $r = $result->where('rate.rates', min($arr))->first();
+        return $r;
     }
 
     /**
