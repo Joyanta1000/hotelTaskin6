@@ -23,7 +23,7 @@
 <body>
     <div class="center">
 
-        <h1>Minimum Package Rates Room</h1>
+        <h2>Minimum Package Rate of {{$r->room->room_name}}</h2>
         <hr>
         <div>
             <label for="">Room: </label>
