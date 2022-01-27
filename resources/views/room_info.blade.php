@@ -7,13 +7,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <title></title>
+    <style>
+        .center {
+            font-family: 'Times New Roman', Times, serif;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #FFFF00;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <div style="padding: 20px;">
+    <div class="center">
 
         <h1>Minimum Package Rates Room</h1>
-
+        <hr>
         <div>
             <label for="">Room: </label>
             <span> {{$r->room->room_name}} </span>
