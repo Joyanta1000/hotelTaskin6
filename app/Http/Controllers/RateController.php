@@ -12,9 +12,12 @@ class RateController extends Controller
 
     public function index($id)
     {
+        // $is_active = request()->get('is_active') ? request()->get('is_active') : 1;
+        
         $result = Package::with(['rate', 'room'])
+            // ->where(['id' => $id, 'is_active' => $is_active])
             ->when($id, function ($query, $id) {
-                return $query->where('room_id', $id);
+                return $query->where(['room_id' => $id, 'is_active' => request()->get('is_active')? request()->get('is_active') : 1]);
             })
             ->get();
         $arr = [];
@@ -22,6 +25,8 @@ class RateController extends Controller
             array_push($arr, $result[$i]->rate->rates);
         }
         $r = $result->where('rate.rates', min($arr))->first();
+
+        dd($r);
         return view('room_info', compact('r'));
     }
 
